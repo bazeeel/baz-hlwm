@@ -9,11 +9,11 @@ function run {
 
 #Find out your monitor name with xrandr or arandr (save and you get this line)
 #xrandr --output HDMI1 --primary --mode 1920x1024 --pos 0x0 --rotate normal
-xrandr --output DP-2 --primary --mode 1920x1080 --rate 60.00 
+xrandr --output DVI-D-1 --primary --mode 1920x1080 --rate 60.00 
 #xrandr --output LVDS1 --mode 1366x768 --output DP3 --mode 1920x1080 --right-of LVDS1
 #xrandr --output HDMI1 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off
 
-$HOME/.config/herbstluftwm/launch.sh &
+#$HOME/.config/herbstluftwm/launch.sh &
 
 #change your keyboard if you need it
 setxkbmap -layout hu
