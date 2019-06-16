@@ -24,13 +24,13 @@ case $desktop in
     polybar --reload mainbar-i3 -c ~/.config/polybar/config &
     fi
     ;;
-    xmonad)
+    openbox)
     if type "xrandr" > /dev/null; then
       for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-        MONITOR=$m polybar --reload mainbar-bar3 -c ~/.config/bspwm/polybar/config &
+        MONITOR=$m polybar --reload mainbar-openbox -c ~/.config/polybar/config &
       done
     else
-    polybar --reload mainbar-bar3 -c ~/.config/bspwm/polybar/config &
+    polybar --reload mainbar-openbox -c ~/.config/polybar/config &
     fi
 #    if type "xrandr" > /dev/null; then
 #      for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
@@ -45,22 +45,9 @@ case $desktop in
     if type "xrandr" > /dev/null; then
       for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
         MONITOR=$m polybar --reload mainbar-bspwm -c ~/.config/bspwm/polybar/config &
-        MONITOR=$m polybar --reload mainbar-bar2 -c ~/.config/bspwm/polybar/config &
       done
     else
     polybar --reload mainbar-bspwm -c ~/.config/bspwm/polybar/config &
-    polybar --reload mainbar-bar2 -c ~/.config/bspwm/polybar/config &
-    fi
-    ;;
-    qtile)
-    if type "xrandr" > /dev/null; then
-      for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-        MONITOR=$m polybar --reload mainbar-bspwm  -c ~/.config/bspwm/polybar/config &
-        MONITOR=$m polybar --reload mainbar-bar2  -c ~/.config/bspwm/polybar/config &
-      done
-    else
-    polybar --reload mainbar-bspwm  -c ~/.config/bspwm/polybar/config &
-    polybar --reload mainbar-bar2  -c ~/.config/bspwm/polybar/config &
     fi
     ;;
 esac

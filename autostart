@@ -8,28 +8,190 @@ hc() {
 
 hc emit_hook reload
 
+pkill -u $USER '^compton$'
+compton  --config $HOME/.config/compton.conf &
+# /home/foo/.config/herbstluftwm/
+## for further test with compton's keybinds for "fun"  compton transparency levels on the fly
+# hc keybind $Mod-Control-q spawn compton-trans -c -10
+# hc keybind $Mod-Control-w spawn compton-trans -c +10
 
-xsetroot -solid '#5A8E3A'
+feh --bg-fill ~/.config/wall.png &
+# for lightDM greeter *log-in screen wallpaper using  /usr/share/backgrounds/arcolinux/herbstluft_dark_logo_bg.png
+
+#nitrogen --restore &
+
+# enable or disable conky for KEYBOARD shortcut HINT in Herbstluft / using basic conky - edited
+# for use with custom Herbstluft -  Most Urgent keys are added /replaced
+# in this case my (.conkyrc) file is locted ~/.concyrc and for autostart with HL just enable
+
+#conky -q
+
+# For fun, if need some other conky may work
+
+# conky -q -c ~/.config/conky/AUR-Slate.conkyrc
+
+#=================================================================================
+# Authentication dialog ## // reference from i3/config  #############################
+#
+# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+#
+######################################################################################
+#=====================================================================================
+
+#  xsetroot -solid '#5A8E3A'
+xsetroot -solid '#285577'
 
 # remove all existing keybindings
 hc keyunbind --all
 
-#Keybindings
+# keybindings
 # if you have a super key you will be much happier with Mod set to Mod4
 #Mod=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
-hc keybind $Mod-Shift-q quit
-hc keybind $Mod-Shift-r reload
-hc keybind $Mod-q  close
-hc keybind $Mod-Return spawn ${TERMINAL:-st} # use your $TERMINAL with xterm as fallback
-hc keybind $Mod-d spawn dmenu_run -i -nb '#191919' -nf '#cca97e' -sb '#cca97e' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=20'
-hc keybind $Mod-Shift-Return spawn thunar
-hc keybind $Mod-e spawn st -e ranger
-hc keybind $Mod-w spawn firefox
+hc keybind $Mod-Shift-q close
 
-#Basic movement
-#Focusing clients
+hc keybind $Mod-Shift-r reload
+hc keybind $Mod-Shift-c spawn chromium
+hc keybind $Mod-Return spawn ${TERMINAL:-termite} # use your $TERMINAL with xterm as fallback
+hc keybind $Mod-Shift-d spawn dmenu_run -i -nb '#191919' -nf '#b0b0b0' -sb '#b0b0b0' -sf '#191919' -fn 'Inconsolata:bold:pixelsize=16'
+hc keybind $Mod-Shift-Return spawn thunar
+#hc keybind $Mod-e spawn subl3
+#hc keybind $Mod-w spawn firefox
+#hc keybind $Mod-Shift-w spawn subl3
+#hc keybind $Mod-t spawn termite
+#######################################################
+############   URGENT KEYS  ##########################
+#######################################################
+# SUPER + q               -- CLOSE APP/ Terminal, dialog
+# SUPER + t               -- urxvt
+# SUPER + e               -- subl3
+# SUPER + x               -- OBLOGOUT*-button menu
+# SUPER + s               -- Toggle Float
+# SUPER + F12             -- rofi
+# SUPER + F11             -- rofi *fullscreen
+# SUPER + F10             -- xfce4-terminal
+# SUPER + F7              -- uxterm *non transparent
+# SUPER + SHIFT + d       -- dmenu
+# SUPER + SHIFT + r       -- RELOAD Herbstclient / NO LOG/OFF / NO Real reboot
+# SUPER + SHIFT + Enter   -- thunar
+# SUPER + Enter           -- termite
+# CTRL + ALT + t          -- termite
+# CTRL + ALT + b          -- THUNAR
+# CTRL + ALT + r          -- rofi theme selector
+# CTRL + ALT + Enter      -- xterm *with transperancy
+# CTRL + ALT + o          -- Toggle Compton ! require script for this:
+#                            hc keybind Control-Mod1-o spawn bash $HOME/.config/herbstluftwm/scripts/compton-toggle.sh
+# CTRL + ALT + BACKSPACE  -- LOGOUT
+######################################################
+#--------------------------
+# SUPER + FUNCTION KEYS
+#--------------------------
+hc keybind $Mod-q close
+# hc keybind $Mod-e spawn atom
+hc keybind $Mod-e spawn subl3
+hc keybind $Mod-h spawn xterm -e htop
+hc keybind $Mod-m spawn pragha
+hc keybind $Mod-t spawn urxvt
+hc keybind $Mod-v spawn pavucontrol
+hc keybind $Mod-w spawn vivaldi-stable
+hc keybind $Mod-x spawn oblogout
+hc keybind $Mod-Escape xkill
+# hc keybind $Mod-Return urxvt
+hc keybind $Mod-F1 spawn vivaldi-stable
+hc keybind $Mod-F2 spawn atom
+hc keybind $Mod-F3 spawn inkscape
+hc keybind $Mod-F4 spawn gimp
+hc keybind $Mod-F5 spawn meld
+hc keybind $Mod-F6 spawn vlc
+# hc keybind $Mod-F7 spawn virtualbox     # default ArcoLinux
+hc keybind $Mod-F7 spawn uxterm
+hc keybind $Mod-F8 spawn thunar
+hc keybind $Mod-F9 spawn evolution
+# hc keybind $Mod-F10 spawn spotify       # default ArcoLinux
+hc keybind $Mod-F10 spawn xfce4-terminal
+hc keybind $Mod-F11 spawn rofi -show run -fullscreen
+hc keybind $Mod-F12 spawn rofi -show run
+
+hc keybind Shift-Control-Escape spawn xfce4-taskmanager
+
+hc keybind $Mod-f window.toggle_fullscreen
+
+#--------------------------
+# Ctrl + Alt(Mod1) + Keys
+#--------------------------
+hc keybind Control-Mod1-a spawn xfce4-appfinder
+hc keybind Control-Mod1-b spawn thunar
+hc keybind Control-Mod1-c spawn Catfish
+hc keybind Control-Mod1-e spawn evolution
+hc keybind Control-Mod1-f spawn firefox
+hc keybind Control-Mod1-g spawn chromium
+# hc keybind Control-Mod1-g spawn chromium      #  -no-default-browser-check << -- i don't know a shit of this
+hc keybind Control-Mod1-i spawn nitrogen
+hc keybind Control-Mod1-k spawn slimlock
+hc keybind Control-Mod1-m spawn xfce4-settings-manager
+hc keybind Control-Mod1-o spawn bash $HOME/.config/herbstluftwm/scripts/compton-toggle.sh
+# hc keybind Control-Mod1-o spawn bash          #  bash toggle ! aka i just  TEST USE for toggle compton On/Off on the fly
+hc keybind Control-Mod1-p spawn pamac-manager
+hc keybind Control-Mod1-r spawn rofi-theme-selector
+hc keybind Control-Mod1-s spawn spotify
+hc keybind Control-Mod1-t spawn termite
+hc keybind Control-Mod1-u spawn pavucontrol
+hc keybind Control-Mod1-v spawn vivaldi-stable
+hc keybind Control-Mod1-w spawn atom
+hc keybind Control-Mod1-Return spawn xterm
+#--------------------------
+# ALT + Keys
+#--------------------------
+hc keybind Mod1-F2 spawn gmrun
+hc keybind Mod1-F3 spawn xfce4-appfinder
+#--------------------------
+# ALT + Keys / Variety Keys
+#
+# NOTICE  To make Variety work change WP must add this
+# this block of code :
+# ------------------------------------------------------------
+# # herbstluft : use either feh or nitrogen
+# if [ "$DESKTOP_SESSION" == "herbstluftwm" ] ; then
+#   if command -v "feh" >/dev/null 2>&1; then
+#     feh --bg-fill "$WP" 2> /dev/null
+#   elif command -v "nitrogen" >/dev/null 2>&1; then
+#     nitrogen --set-zoom-fill --save "$WP" 2> /dev/null
+#   fi
+# fi
+#-------------------------------------------------------------
+# to the end of set_wallpaper file
+# located ~/.config/varety/scripts/set_wallpaper
+# ------------------------------------------------------------
+# ALT + Keys / Variety Keys
+#--------------------------
+hc keybind Mod1-f spawn variety -f
+hc keybind Mod1-n spawn variety -n
+hc keybind Mod1-p spawn variety -p
+hc keybind Mod1-t spawn variety -t
+hc keybind Mod1-Up spawn variety --pause
+hc keybind Mod1-Down spawn variety --resume
+hc keybind Mod1-Left spawn variety -p
+hc keybind Mod1-Right spawn variety -n
+hc keybind Mod1-v spawn variety --preferences
+hc keybind Mod1-s spawn variety --selector
+#--------------------------
+# SHIFT + ALT Keys / Variety Keys for PY-WAL  / these will change wallpaper and grab colors with PY-WAL
+#--------------------------
+hc keybind Mod1-Shift-f spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -f
+hc keybind Mod1-Shift-p spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -p
+hc keybind Mod1-Shift-n spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -n
+hc keybind Mod1-Shift-u spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -u
+
+
+hc keybind Print spawn scrot 'ALB-Herbstluft-%Y-%m-%d__%H-%M-%S__%s_scrot_$wx$h.png' -e 'mv $f $$(xdg-user-dir PICTURES)'
+hc keybind Control-Print spawn gnome-screenshot -i
+hc keybind Control-Shift-Print spawn xfce4-screenshooter
+# Require (flameshot) installed and dir for save - Ctrl+s !!
+hc keybind Shift-Print spawn flameshot gui -p $HOME/Flameshot
+
+# basic movement
+# focusing clients
 hc keybind $Mod-Left  focus left
 hc keybind $Mod-Down  focus down
 hc keybind $Mod-Up    focus up
@@ -39,7 +201,7 @@ hc keybind $Mod-j     focus down
 hc keybind $Mod-k     focus up
 hc keybind $Mod-l     focus right
 
-#Moving clients
+# moving clients
 hc keybind $Mod-Shift-Left  shift left
 hc keybind $Mod-Shift-Down  shift down
 hc keybind $Mod-Shift-Up    shift up
@@ -49,15 +211,15 @@ hc keybind $Mod-Shift-j     shift down
 hc keybind $Mod-Shift-k     shift up
 hc keybind $Mod-Shift-l     shift right
 
-#Splitting frames
-##Create an empty frame at the specified direction
+# splitting frames
+# create an empty frame at the specified direction
 hc keybind $Mod-u       split   bottom  0.5
 hc keybind $Mod-o       split   right   0.5
 # let the current frame explode into subframes
 hc keybind $Mod-Control-space split explode
 
 # resizing frames
-resizestep=0.05
+resizestep=0.01
 hc keybind $Mod-Control-h       resize left +$resizestep
 hc keybind $Mod-Control-j       resize down +$resizestep
 hc keybind $Mod-Control-k       resize up +$resizestep
@@ -67,15 +229,10 @@ hc keybind $Mod-Control-Down    resize down +$resizestep
 hc keybind $Mod-Control-Up      resize up +$resizestep
 hc keybind $Mod-Control-Right   resize right +$resizestep
 
-#Tags
-#tag_names=( {"     ","     ","     ","      ","     ","     ","     ","    ","     "} )
-#tag_icons=( {"     ","     ","     ","      ","     ","     ","     ","    ","     "} )
-#tag_keys=( {1..9} 0 )
-
-
 # tags
-tag_names=( {1..9} )
-tag_icons=( {1..9} )
+
+tag_names=( {"     ","     ","     ","      ","     ","     ","     ","    ","     "} )
+tag_icons=( {"     ","     ","     ","      ","     ","     ","     ","    ","     "} )
 tag_keys=( {1..9} 0 )
 
 hc rename default "${tag_names[0]}" || true
@@ -87,6 +244,7 @@ for i in ${!tag_names[@]} ; do
         hc keybind "$Mod-Shift-$key" move_index "$i"
     fi
 done
+
 
 # cycle through tags
 hc keybind $Mod-period use_index +1 --skip-visible
@@ -118,84 +276,86 @@ hc keybind $Mod-Shift-Tab   cycle_all -1
 hc keybind $Mod-c cycle
 hc keybind $Mod-i jumpto urgent
 
-#Theme
+# thee
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#ffffff'
+hc set frame_border_active_color '#222222'
+hc set frame_border_normal_color '#101010'
+hc set frame_bg_normal_color '#565656'
+#hc set frame_bg_active_color '#345F0C'
 
-#Panel Colors
-hc set frame_border_normal_color '#333333'
-hc set frame_bg_normal_color '#000000'
-
-#Blamk window frame
-hc set frame_bg_active_color '#345F0C'
+#hc set frame_bg_active_color '#5555FF'
+hc set frame_bg_active_color '#0B0B21'
 hc set frame_border_width 0
 hc set always_show_frame 0
-hc set frame_bg_transparent 1
+hc set frame_bg_transparent 0
 hc set frame_transparent_width 0
-hc set frame_gap 0
+hc set frame_gap 4
+hc set focus_follows_mouse 1
 
-#Workspaces Colors
-hc attr theme.active.color '#4682B4'
+#hc attr theme.active.color '#9fbc00'
+hc attr theme.active.color '#6790eb'
 hc attr theme.normal.color '#454545'
-hc attr theme.urgent.color '#900000'
+hc attr theme.urgent.color orange
 hc attr theme.inner_width 1
 hc attr theme.inner_color black
 hc attr theme.border_width 3
-hc attr theme.floating.border_width 3
+hc attr theme.floating.border_width 4
 hc attr theme.floating.outer_width 1
 hc attr theme.floating.outer_color black
-hc attr theme.active.inner_color '#3E4A00'
-hc attr theme.active.outer_color '#3E4A00'
+#hc attr theme.active.inner_color '#3E4A00'
+#hc attr theme.active.outer_color '#3E4A00'
+hc attr theme.active.inner_color '#0B0B21'
+hc attr theme.active.outer_color '#285577'
 hc attr theme.background_color '#141414'
 
-#GAPS & PADDINGS
 hc pad 0 30 0 0
 hc set window_gap 20
 hc set frame_padding 0
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 1
 hc set mouse_recenter_gap 0
-hc set focus_follows_mouse 1
-hc set focus_follows_shift 1
 
-#Rules
+# rules
 hc unrule -F
-#hc rule class=XTerm tag=3 # move all xterms to tag 3
-hc rule focus=on # normally focus new clients
-#hc rule focus=off # normally do not focus new clients
+# hc rule class=XTerm tag=3 # move all xterms to tag 3
+hc rule focus=on
+# normally focus new clients
+# hc rule focus=off
+# normally do not focus new clients
 # give focus to most common terminals
-hc rule class='Firefox' tag=1 focus=on
-hc rule class='Thunar' tag=5
-hc rule class= tag=ⅠⅩ
-hc rule class=Pavucontrol tag=Ⅹ
+# hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 
-#Monitors
-#herbstclient set_monitors 1366x768+0+0 1920x1080+1366+0
+hc rule class="Navigator" tag=1
 
-#// management:
-#hc rule title="Open Image" floating=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=on
+
+
+# experimental - below not good
+#hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=off focus=on
+#hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=off
+
+# experimental - with extra script (floatlayer.sh)  but not working
+# hc rule --windowtype='_NET_WM_WINDOW_TYPE_DIALOG' --tag=c --focus=on
+# floatlayer.sh
+# hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+
+hc set tree_style '╾│ ├└╼─┐'
+
 # unlock, just to be sure
 hc unlock
-
-herbstclient set tree_style '╾│ ├└╼─┐'
 
 # do multi monitor setup here, e.g.:
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 # hc detect_monitors
-feh --randomize --bg-scale ~/Képek/*
-compton --config ~/.config/compton.conf
-~/.config/herbstluftwm/startup.sh &
-
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
-     start it on each monitor
+    # start it on each monitor
     "$panel" $monitor &
 done
