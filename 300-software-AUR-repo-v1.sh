@@ -84,8 +84,8 @@ sh AUR/install-xcursor-breeze-v*.sh
 
 # these come always last
 
-sh AUR/install-hardcode-fixer-git-v*.sh
-sudo hardcode-fixer
+#sh AUR/install-hardcode-fixer-git-v*.sh
+#sudo hardcode-fixer
 
 echo "################################################################"
 echo "####        Software from AUR Repository installed        ######"
