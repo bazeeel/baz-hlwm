@@ -1,0 +1,139 @@
+# You can edit this file by hand, but it's recommended not to do that.
+
+# Marks:
+
+# Bookmarks:
+
+# TUI:
+al
+q0
+v2
+ov
+m-1
+l2
+r2
+
+# Left window history (oldest to newest):
+d/home/xeoncpu/.config
+	polybar
+22
+d/home/xeoncpu/.config/polybar
+	config
+3
+d/home/xeoncpu
+	Letöltések
+1
+d/home/xeoncpu/Letöltések
+	conkyrc
+6
+d/home/xeoncpu
+	.config
+2
+d/home/xeoncpu/.config
+	sxhkd
+26
+d/home/xeoncpu/.config/sxhkd
+	sxhkdrc
+1
+d/home/xeoncpu
+	.config
+2
+d/home/xeoncpu/.config
+	polybar
+23
+d/home/xeoncpu/.config/polybar
+	config
+3
+d/home/xeoncpu
+	..
+0
+d/home
+	xeoncpu
+1
+d/
+	mnt
+8
+d/mnt
+	Pusztito.2018.CUSTOM.BDRip.x264.HUN-mHD
+37
+d/mnt/Pusztito.2018.CUSTOM.BDRip.x264.HUN-mHD
+	Pusztito.2018.CUSTOM.BDRip.x264.HUN-mHD.mkv
+2
+
+# Right window history (oldest to newest):
+D/home/xeoncpu
+	..
+0
+D/home
+	xeoncpu
+1
+D/
+	home
+4
+D/home/xeoncpu
+	.config
+2
+D/home/xeoncpu/.config
+	herbstluftwm
+11
+D/home/xeoncpu/.config/herbstluftwm
+	..
+0
+D/home/xeoncpu/.config
+	sxiv
+26
+D/home/xeoncpu
+	..
+0
+
+# Command line history (oldest to newest):
+
+# Search history (oldest to newest):
+
+# Prompt history (oldest to newest):
+
+# Local filter history (oldest to newest):
+
+# Registers:
+""/home/xeoncpu/.local/share/vifm/Trash/000_Dharma.And.Greg.S01.TVrip.DivX.Hun-ufo.17e0ca1c301147bd.resume
+""/home/xeoncpu/.local/share/vifm/Trash/000_Dharma.And.Greg.S02.TVrip.DivX.Hun-ufo.06a0e9ba278353bb.resume
+""/home/xeoncpu/.local/share/vifm/Trash/000_Inside.2007.720p.BluRay.DD5.1.x264.HuN-No1.e4e5a75ca9b1a96f.resume
+""/home/xeoncpu/.local/share/vifm/Trash/000_Mans.Best.Friend.1993.1080p.BluRay.x264.DTS.HUN-blade82.47ed62376de8bb75.resume
+""/home/xeoncpu/.local/share/vifm/Trash/000_The.Big.Bang.Theory.S12E24.1080p.HDTV.x264-CRAVERS.6e72056576ca542a.resume
+""/home/xeoncpu/.local/share/vifm/Trash/000_Us.2019.1080p.WEB-DL.DD5.1.H264-EVO.f230bc44487d4b3b.resume
+
+# Directory stack (oldest to newest):
+
+# Trash content:
+t/home/xeoncpu/.local/share/vifm/Trash/000_autostart
+	/home/xeoncpu/baz-hlwm/autostart
+t/home/xeoncpu/.local/share/vifm/Trash/000_panel.sh
+	/home/xeoncpu/baz-hlwm/panel.sh
+t/home/xeoncpu/.local/share/vifm/Trash/000_rename.sh
+	/home/xeoncpu/baz-hlwm/rename.sh
+t/home/xeoncpu/.local/share/vifm/Trash/000_startup.sh
+	/home/xeoncpu/baz-hlwm/startup.sh
+t/home/xeoncpu/.local/share/vifm/Trash/000_polybar
+	/home/xeoncpu/baz-hlwm/polybar
+t/home/xeoncpu/.local/share/vifm/Trash/000_pic-full-190616-0625-56.png
+	/home/xeoncpu/pic-full-190616-0625-56.png
+t/home/xeoncpu/.local/share/vifm/Trash/000_pic-full-190616-1019-02.png
+	/home/xeoncpu/pic-full-190616-1019-02.png
+t/home/xeoncpu/.local/share/vifm/Trash/000_pic-full-190616-1649-49.png
+	/home/xeoncpu/pic-full-190616-1649-49.png
+t/home/xeoncpu/.local/share/vifm/Trash/000_pic-full-190616-1652-47.png
+	/home/xeoncpu/pic-full-190616-1652-47.png
+t/home/xeoncpu/.local/share/vifm/Trash/000_Downloads
+	/home/xeoncpu/Downloads
+t/home/xeoncpu/.local/share/vifm/Trash/000_Dharma.And.Greg.S01.TVrip.DivX.Hun-ufo.17e0ca1c301147bd.resume
+	/home/xeoncpu/baz-hlwm/transmission-daemon/resume/Dharma.And.Greg.S01.TVrip.DivX.Hun-ufo.17e0ca1c301147bd.resume
+t/home/xeoncpu/.local/share/vifm/Trash/000_Dharma.And.Greg.S02.TVrip.DivX.Hun-ufo.06a0e9ba278353bb.resume
+	/home/xeoncpu/baz-hlwm/transmission-daemon/resume/Dharma.And.Greg.S02.TVrip.DivX.Hun-ufo.06a0e9ba278353bb.resume
+t/home/xeoncpu/.local/share/vifm/Trash/000_Inside.2007.720p.BluRay.DD5.1.x264.HuN-No1.e4e5a75ca9b1a96f.resume
+	/home/xeoncpu/baz-hlwm/transmission-daemon/resume/Inside.2007.720p.BluRay.DD5.1.x264.HuN-No1.e4e5a75ca9b1a96f.resume
+t/home/xeoncpu/.local/share/vifm/Trash/000_Mans.Best.Friend.1993.1080p.BluRay.x264.DTS.HUN-blade82.47ed62376de8bb75.resume
+	/home/xeoncpu/baz-hlwm/transmission-daemon/resume/Mans.Best.Friend.1993.1080p.BluRay.x264.DTS.HUN-blade82.47ed62376de8bb75.resume
+t/home/xeoncpu/.local/share/vifm/Trash/000_The.Big.Bang.Theory.S12E24.1080p.HDTV.x264-CRAVERS.6e72056576ca542a.resume
+	/home/xeoncpu/baz-hlwm/transmission-daemon/resume/The.Big.Bang.Theory.S12E24.1080p.HDTV.x264-CRAVERS.6e72056576ca542a.resume
+t/home/xeoncpu/.local/share/vifm/Trash/000_Us.2019.1080p.WEB-DL.DD5.1.H264-EVO.f230bc44487d4b3b.resume
+	/home/xeoncpu/baz-hlwm/transmission-daemon/resume/Us.2019.1080p.WEB-DL.DD5.1.H264-EVO.f230bc44487d4b3b.resume
