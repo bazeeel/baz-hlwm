@@ -337,10 +337,9 @@ font-1 = "FontAwesome:size=13;0"
 font-2 = "Noto Sans:size=10;0"
 font-3 = "Noto Sans Mono:size=10;0"
 
-modules-left = ewmh xwindow
-modules-center = kernel
+modules-left = kernel mpd filesystem xwindow 
+modules-center = ewmh 
 modules-right = volume memory2 cpu2 date
-
 tray-detached = false
 tray-offset-x = 0
 tray-offset-y = 0
@@ -984,7 +983,7 @@ spacing = 4
 format-mounted = <label-mounted>
 format-mounted-foreground = ${colors.foreground}
 format-mounted-background = ${colors.background}
-format-mounted-underline = #fe0000
+;format-mounted-underline = #fe0000
 
 
 ; Available tokens:

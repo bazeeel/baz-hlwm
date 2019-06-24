@@ -9,33 +9,16 @@ hc() {
 hc emit_hook reload
 
 pkill -u $USER '^compton$'
+
+#Autostart application
+#compton
 compton  --config $HOME/.config/compton.conf &
-# /home/foo/.config/herbstluftwm/
-## for further test with compton's keybinds for "fun"  compton transparency levels on the fly
-# hc keybind $Mod-Control-q spawn compton-trans -c -10
-# hc keybind $Mod-Control-w spawn compton-trans -c +10
 
-#feh --bg-fill ~/.config/wall.png &
-# for lightDM greeter *log-in screen wallpaper using  /usr/share/backgrounds/arcolinux/herbstluft_dark_logo_bg.png
-
-#nitrogen --restore &
-
-# enable or disable conky for KEYBOARD shortcut HINT in Herbstluft / using basic conky - edited
-# for use with custom Herbstluft -  Most Urgent keys are added /replaced
-# in this case my (.conkyrc) file is locted ~/.concyrc and for autostart with HL just enable
-
-#conky -q
-
-# For fun, if need some other conky may work
-
-# conky -q -c ~/.config/conky/AUR-Slate.conkyrc
-
-#=================================================================================
-# Authentication dialog ## // reference from i3/config  #############################
-#
+#polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-#=====================================================================================
+#Simple X hotkex daemon autostart
+sxhkd &
 
 #  xsetroot -solid '#5A8E3A'
 xsetroot -solid '#285577'
@@ -48,28 +31,7 @@ hc keyunbind --all
 #Mod=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
-#hc keybind $Mod-q close
-hc keybind $Mod-p  reload
-hc keybind $Mod-Return spawn st
-hc keybind $Mod-F2 spawn st -e vim ~/.config/herbstluftwm/autostart
-#--------------------------
-# ALT + Keys / Variety Keys
-#
-# NOTICE  To make Variety work change WP must add this
-# this block of code :
-# ------------------------------------------------------------
-# # herbstluft : use either feh or nitrogen
-# if [ "$DESKTOP_SESSION" == "herbstluftwm" ] ; then
-#   if command -v "feh" >/dev/null 2>&1; then
-#     feh --bg-fill "$WP" 2> /dev/null
-#   elif command -v "nitrogen" >/dev/null 2>&1; then
-#     nitrogen --set-zoom-fill --save "$WP" 2> /dev/null
-#   fi
-# fi
-#-------------------------------------------------------------
-# to the end of set_wallpaper file
-# located ~/.config/varety/scripts/set_wallpaper
-# ------------------------------------------------------------
+
 # ALT + Keys / Variety Keys
 #--------------------------
 hc keybind Mod1-f spawn variety -f
@@ -93,8 +55,8 @@ hc keybind Mod1-Shift-u spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -u
 
 # tags
 
-tag_names=( {"     ","      ","     ","      ","     ","      ","     ","    ","     "} )
-tag_icons=( {"     ","      ","     ","      ","     ","      ","     ","    ","     "} )
+tag_names=( {"  1  ","  2  ","  3  ","   4  ","  5  ","  6  "," 7  ","  8  ","  9  "} )
+tag_icons=( {"  1  ","  2  ","  3  ","   4  ","  5  ","  6  "," 7  ","  8  ","  9  "} )
 tag_keys=( {1..9} 0 )
 
 hc rename default "${tag_names[0]}" || true
@@ -108,15 +70,6 @@ for i in ${!tag_names[@]} ; do
 done
 
 
-# cycle through tags
-hc keybind $Mod-period use_index +1 --skip-visible
-hc keybind $Mod-comma  use_index -1 --skip-visible
-
-# layouting
-hc keybind $Mod-r remove
-hc keybind $Mod-s floating toggle
-hc keybind $Mod-f fullscreen toggle
-hc keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
@@ -127,16 +80,7 @@ hc keybind $Mod-space                                                           
 
 # mouse
 hc mouseunbind --all
-hc mousebind $Mod-Button1 move
-hc mousebind $Mod-Button2 zoom
-hc mousebind $Mod-Button3 resize
 
-# focus
-hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-Tab         cycle_all +1
-hc keybind $Mod-Shift-Tab   cycle_all -1
-hc keybind $Mod-c cycle
-hc keybind $Mod-i jumpto urgent
 
 # thee
 hc attr theme.tiling.reset 1
@@ -155,6 +99,7 @@ hc set frame_transparent_width 0
 hc set frame_gap 0
 hc set focus_follows_mouse 1
 
+#Customize (colour) herbstluftwm
 #hc attr theme.active.color '#9fbc00'
 hc attr theme.active.color '#015697'
 hc attr theme.normal.color '#454545'
@@ -171,6 +116,7 @@ hc attr theme.active.inner_color '#0B0B21'
 hc attr theme.active.outer_color '#285577'
 hc attr theme.background_color '#141414'
 
+#Bar & window gaps
 hc pad 0 30 0 0
 hc set window_gap 20
 hc set frame_padding 0
@@ -178,7 +124,7 @@ hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 0
 hc set mouse_recenter_gap 0
 
-# rules
+#Rules
 hc unrule -F
 # hc rule class=XTerm tag=3 # move all xterms to tag 3
 hc rule focus=on
@@ -188,23 +134,15 @@ hc rule focus=on
 # give focus to most common terminals
 # hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 
-hc rule class="Navigator" tag=
+hc rule class=Firefox tag=^1
+hc rule class='discord' tag=2 focus=on
 
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=on
 
 
-# experimental - below not good
-#hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' manage=off focus=on
-#hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK)' manage=off focus=off
-
-# experimental - with extra script (floatlayer.sh)  but not working
-# hc rule --windowtype='_NET_WM_WINDOW_TYPE_DIALOG' --tag=c --focus=on
-# floatlayer.sh
-# hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
-
-hc set tree_style '╾│ ├└╼─┐'
+hc set tree_style '⊙│ ├╰»─╮'
 
 # unlock, just to be sure
 hc unlock
@@ -213,7 +151,7 @@ hc unlock
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 # hc detect_monitors
-sxhkd &
+
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
