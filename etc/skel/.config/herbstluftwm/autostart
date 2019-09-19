@@ -25,6 +25,8 @@ xsetroot -solid '#285577'
 
 # remove all existing keybindings
 hc keyunbind --all
+# horizontal tiling as standard
+hc set_layout horizontal
 
 # keybindings
 # if you have a super key you will be much happier with Mod set to Mod4
@@ -55,9 +57,11 @@ hc keybind Mod1-Shift-u spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -u
 
 # tags
 
-tag_names=( {"  1  ","  2  ","  3  ","   4  ","  5  ","  6  "," 7  ","  8  ","  9  "} )
-tag_icons=( {"  1  ","  2  ","  3  ","   4  ","  5  ","  6  "," 7  ","  8  ","  9  "} )
-tag_keys=( {1..9} 0 )
+tag_names=( {1..10} )
+#tag_names=("\61612" "\61899" "\61947" "\61635" "\61502" "\61501" "\61705" "\61564" "\62150" "\61872" )
+#tag_names=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+#tag_names=("I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X")
+tag_keys=( {1..10} 0 )
 
 hc rename default "${tag_names[0]}" || true
 for i in ${!tag_names[@]} ; do
@@ -69,7 +73,11 @@ for i in ${!tag_names[@]} ; do
     fi
 done
 
-
+# layouting
+hc keybind $Mod-r remove
+hc keybind $Mod-s floating toggle
+hc keybind $Mod-f fullscreen toggle
+hc keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
@@ -78,8 +86,12 @@ hc keybind $Mod-space                                                           
                      . cycle_layout +1 vertical horizontal max vertical grid    \
                , cycle_layout +1
 
+
 # mouse
 hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 zoom
+hc mousebind $Mod-Button3 resize
 
 
 # thee
@@ -133,10 +145,6 @@ hc rule focus=on
 # normally do not focus new clients
 # give focus to most common terminals
 # hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
-
-hc rule class=Firefox tag=^1
-hc rule class='discord' tag=2 focus=on
-
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=on
