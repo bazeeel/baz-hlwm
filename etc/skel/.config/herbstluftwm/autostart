@@ -1,80 +1,163 @@
 #!/usr/bin/env bash
 
-# this is a simple config for herbstluftwm
+function run {
+  if ! pgrep $1 ;
+  then
+    $@&
+  fi
+}
 
+#change your keyboard if you need it
+#setxkbmap -layout be
+
+#Autostart applications
+pkill -u $USER '^picom$'
+picom  --config $HOME/.config/herbstluftwm/picom.conf &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# /usr/lib/xfce4/notifyd/xfce4-notifyd &
+
+xsetroot -solid '#000000'
+xsetroot -cursor_name left_ptr &
+
+#keybindings are in config of sxhkd - interchangeable with other TWM
+sxhkd -c ~/.config/herbstluftwm/sxhkd/sxhkdrc &
+
+feh --bg-scale ~/.config/herbstluftwm/wall.png &
+#feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
+#feh --bg-scale /usr/share/backgrounds/arcolinux/abstract-warm-heart-4560x2160.jpg
+# conky -c $HOME/.config/herbstluftwm/system-overview &
+# run variety &
+# nm-applet &
+# pamac-tray &
+# xfce4-power-manager &
+# numlockx on &
+# blueberry-tray &
+# run volumeicon &
+# nitrogen --restore &
+# caffeine &
+# vivaldi-stable &
+# firefox &
+# thunar &
+# dropbox &
+# run insync start &
+# discord &
+# spotify &
+# atom &
+
+#herbstluftwm start
 hc() {
     herbstclient "$@"
 }
 
 hc emit_hook reload
 
-pkill -u $USER '^compton$'
-
-#Autostart application
-#compton
-compton  --config $HOME/.config/compton.conf &
-
-#polkit
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-#Simple X hotkex daemon autostart
-sxhkd &
-
-#  xsetroot -solid '#5A8E3A'
-xsetroot -solid '#285577'
+# KEYBINDINGS
 
 # remove all existing keybindings
 hc keyunbind --all
-# horizontal tiling as standard
-hc set_layout horizontal
 
-# keybindings
 # if you have a super key you will be much happier with Mod set to Mod4
-#Mod=Mod1    # Use alt as the main modifier
+#Mod=Mod1  # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
+# hc keybind $Mod-Shift-x quit
+# hc keybind $Mod-F2 reload
+# hc keybind $Mod-Shift-q close
+# hc keybind $Mod-q close
 
-# ALT + Keys / Variety Keys
-#--------------------------
-hc keybind Mod1-f spawn variety -f
-hc keybind Mod1-n spawn variety -n
-hc keybind Mod1-p spawn variety -p
-hc keybind Mod1-t spawn variety -t
-hc keybind Mod1-Up spawn variety --pause
-hc keybind Mod1-Down spawn variety --resume
-hc keybind Mod1-Left spawn variety -p
-hc keybind Mod1-Right spawn variety -n
-hc keybind Mod1-v spawn variety --preferences
-hc keybind Mod1-s spawn variety --selector
-#--------------------------
-# SHIFT + ALT Keys / Variety Keys for PY-WAL  / these will change wallpaper and grab colors with PY-WAL
-#--------------------------
-hc keybind Mod1-Shift-f spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -f
-hc keybind Mod1-Shift-p spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -p
-hc keybind Mod1-Shift-n spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -n
-hc keybind Mod1-Shift-u spawn $HOME/.config/herbstluftwm/scripts/set-pywal.sh -u
+#Most of the keybindings have been set in sxhkd config file
+#you can set them also here
 
+#reload sxhkd - see keybind in sxhkd
+#hc keybind $Mod-Shift-s  pkill -USR1 -x sxhkd
 
-# tags
+# MOVEMENTS
 
+# focusing clients
+hc keybind $Mod-Left  focus left
+hc keybind $Mod-Down  focus down
+hc keybind $Mod-Up    focus up
+hc keybind $Mod-Right focus right
+hc keybind $Mod-h     focus left
+hc keybind $Mod-j     focus down
+hc keybind $Mod-k     focus up
+hc keybind $Mod-l     focus right
+
+# moving clients to ... on single Monitor
+hc keybind $Mod-Shift-Left  shift left
+hc keybind $Mod-Shift-Down  shift down
+hc keybind $Mod-Shift-Up    shift up
+hc keybind $Mod-Shift-Right shift right
+hc keybind $Mod-Shift-h     shift left
+hc keybind $Mod-Shift-j     shift down
+hc keybind $Mod-Shift-k     shift up
+hc keybind $Mod-Shift-l     shift right
+
+# moving clients to ... on dual monitor
+# hc keybind $Mod-Shift-h chain , lock , shift_to_monitor -l , focus_monitor -l , unlock
+# hc keybind $Mod-Shift-Left chain , lock , shift_to_monitor -l , focus_monitor -l , unlock
+# hc keybind $Mod-Shift-j chain , lock , shift_to_monitor -l , focus_monitor -l , unlock
+# hc keybind $Mod-Shift-Down chain , lock , shift_to_monitor -l , focus_monitor -l , unlock
+# hc keybind $Mod-Shift-k chain , lock , shift_to_monitor -r , focus_monitor -r , unlock
+# hc keybind $Mod-Shift-Up chain , lock , shift_to_monitor -r , focus_monitor -r , unlock
+# hc keybind $Mod-Shift-l chain , lock , shift_to_monitor -r , focus_monitor -r , unlock
+# hc keybind $Mod-Shift-Right chain , lock , shift_to_monitor -r , focus_monitor -r , unlock
+
+# FRAMES
+
+# create an empty frame at the specified direction
+hc keybind $Mod-u       split   bottom  0.5
+hc keybind $Mod-o       split   right   0.5
+# let the current frame explode into subframes
+hc keybind $Mod-Control-space split explode
+# remove frame
+hc keybind $Mod-r remove
+
+# resizing frames
+resizestep=0.05
+hc keybind $Mod-Control-h       resize left +$resizestep
+hc keybind $Mod-Control-j       resize down +$resizestep
+hc keybind $Mod-Control-k       resize up +$resizestep
+hc keybind $Mod-Control-l       resize right +$resizestep
+hc keybind $Mod-Control-Left    resize left +$resizestep
+hc keybind $Mod-Control-Down    resize down +$resizestep
+hc keybind $Mod-Control-Up      resize up +$resizestep
+hc keybind $Mod-Control-Right   resize right +$resizestep
+
+# TAGS or WORKSPACES
+
+#names to display in menu
 tag_names=( {1..10} )
-#tag_names=("\61612" "\61899" "\61947" "\61635" "\61502" "\61501" "\61705" "\61564" "\62150" "\61872" )
-#tag_names=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
-#tag_names=("I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X")
+tag_names=("Web" "Chat" "Edit" "Meld" "Vb" "Mail" "Video" "Image" "Thunar" "Music")
+#tag_names=("☢️ " "🤬 " "⚒️ " "🍭 " "🎲 " "🎬 " "🔰 "  "🎯 " "📀 ")
+
+#keys to press to get to the tags
+#Qwerty
 tag_keys=( {1..10} 0 )
+
+#Belgian azerty
+#tag_keys=( ampersand eacute quotedbl apostrophe parenleft section egrave exclam ccedilla agrave )
+
+#French azerty
+#tag_keys=( ampersand eacute quotedbl apostrophe parenleft minus egrave underscore ccedilla agrave )
+
+#Discord tip for some keyboards
+#tag_keys=( "1 " "2 " "3 " "4 " "5 " "6 " "7 " "8 " "9 " "0 " )
 
 hc rename default "${tag_names[0]}" || true
 for i in ${!tag_names[@]} ; do
     hc add "${tag_names[$i]}"
+    # horizontal tiling as standard
+    hc set_layout horizontal
+    hc set default_frame_layout 1
     key="${tag_keys[$i]}"
     if ! [ -z "$key" ] ; then
         hc keybind "$Mod-$key" use_index "$i"
-        hc keybind "$Mod-Shift-$key" move_index "$i"
+        hc keybind "$Mod-Shift-$key" chain , move_index "$i" , use_index "$i"
     fi
 done
 
 # layouting
-hc keybind $Mod-r remove
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
@@ -83,9 +166,8 @@ hc keybind $Mod-p pseudotile toggle
 # I.e. if there are two windows within a frame, the grid layout is skipped.
 hc keybind $Mod-space                                                           \
             or , and . compare tags.focus.curframe_wcount = 2                   \
-                     . cycle_layout +1 vertical horizontal max vertical grid    \
+                     . cycle_layout +1 vertical horizontal max grid    \
                , cycle_layout +1
-
 
 # mouse
 hc mouseunbind --all
@@ -93,78 +175,108 @@ hc mousebind $Mod-Button1 move
 hc mousebind $Mod-Button2 zoom
 hc mousebind $Mod-Button3 resize
 
+# focus on ...
+hc keybind $Mod-BackSpace   cycle_monitor
+hc keybind $Mod-Tab         use_index +1 --skip-visible
+hc keybind $Mod-Shift-Tab   use_index -1 --skip-visible
+hc keybind Control-Mod1-Left    focus left
+hc keybind Control-Mod1-Up      focus up
+hc keybind Control-Mod1-Right   focus right
+hc keybind Control-Mod1-Down    focus down
+hc keybind Mod1-Tab         use_index +1 --skip-visible
+hc keybind Mod1-Shift-Tab   use_index -1 --skip-visible
+#hc keybind $Mod-c cycle
+hc keybind $Mod-i jumpto urgent
 
-# thee
-hc attr theme.tiling.reset 1
-hc attr theme.floating.reset 1
-hc set frame_border_active_color '#015697'
-hc set frame_border_normal_color '#101010'
-#hc set frame_bg_normal_color '#565656'
-#hc set frame_bg_active_color '#345F0C'
+#reset prior to setting the theme
+hc attr theme.reset 1
 
-#hc set frame_bg_active_color '#5555FF'
-hc set frame_bg_active_color '#0B0B21'
-hc set frame_border_width 0
-hc set always_show_frame 0
-hc set frame_bg_transparent 1      #if 0 no transparency
-hc set frame_transparent_width 0
-hc set frame_gap 0
-hc set focus_follows_mouse 1
-
-#Customize (colour) herbstluftwm
-#hc attr theme.active.color '#9fbc00'
-hc attr theme.active.color '#015697'
-hc attr theme.normal.color '#454545'
-hc attr theme.urgent.color orange
-hc attr theme.inner_width 1
-hc attr theme.inner_color black
-hc attr theme.border_width 3      #windows border width
+# Attribute
+hc attr theme.active.color '#6790EB'
+hc attr theme.active.inner_color '#141414'
+hc attr theme.active.outer_color '#6790EB'
+hc attr theme.background_color '#141414'
+hc attr theme.border_width 3
 hc attr theme.floating.border_width 4
 hc attr theme.floating.outer_width 1
 hc attr theme.floating.outer_color black
-#hc attr theme.active.inner_color '#3E4A00'
-#hc attr theme.active.outer_color '#3E4A00'
-hc attr theme.active.inner_color '#0B0B21'
-hc attr theme.active.outer_color '#285577'
-hc attr theme.background_color '#141414'
+hc attr theme.inner_color black
+hc attr theme.inner_width 1
+hc attr theme.normal.color '#141414'
+hc attr theme.urgent.color orange
 
-#Bar & window gaps
-hc pad 0 30 0 0
-hc set window_gap 20
+# Set
+hc set always_show_frame 1
+hc set focus_follows_mouse 1
+hc set frame_border_active_color '#6790EB'
+hc set frame_border_normal_color '#141414'
+hc set frame_bg_normal_color '#141414'
+hc set frame_bg_active_color '#6790EB'
+hc set frame_border_width 3
+hc set frame_bg_transparent 1
+hc set frame_transparent_width 0
+hc set frame_gap 5
 hc set frame_padding 0
-hc set smart_window_surroundings 0
-hc set smart_frame_surroundings 0
 hc set mouse_recenter_gap 0
+hc set smart_frame_surroundings 1
+hc set smart_window_surroundings 0
+hc set tree_style '╾│ ├└╼─┐'
+#hc set tree_style '⊙│ ├╰»─╮'
+hc set window_gap 15
+#hc set window_radius 8
 
-#Rules
+
+# RULES
 hc unrule -F
-# hc rule class=XTerm tag=3 # move all xterms to tag 3
-hc rule focus=on
-# normally focus new clients
-# hc rule focus=off
-# normally do not focus new clients
+hc rule focus=on # normally focus new clients
+#hc rule focus=off # normally do not focus new clients
+
+#assign applications to workspaces or tags
+hc rule class~'(firefox|brave|Brave-browser|Vivaldi-snapshot|Chromium|Google-chrome)' tag='Web' switchtag=on focus=on
+hc rule class='Spotify' tag='Music' switchtag=on focus=on
+hc rule class='Subl3' tag='Edit' switchtag=on focus=on
+hc rule class~'(discord|Discord|TelegramDesktop)' tag='Chat' switchtag=on focus=on
+hc rule class~'(vlc|mpv|Mpv)' tag='Video' switchtag=on focus=on
+hc rule class~'(VirtualBox Manager|Vmplayer)' tag='Vb' switchtag=on focus=on
+hc rule class~'(Thunar|Nemo|Caja|Nautilus)' tag='Thunar' switchtag=on focus=on
+hc rule class~'(Evolution|Geary)' tag='Mail' switchtag=on focus=on
+hc rule class~'(gimp|Gimp)' tag='Image' switchtag=on focus=on
+
 # give focus to most common terminals
-# hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+#hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=on
-
-
-hc set tree_style '⊙│ ├╰»─╮'
+hc rule class=Oblogout fullscreen=on
+hc rule class=Insync pseudotile=on
+hc rule class=VirtualBox fullscreen=on
 
 # unlock, just to be sure
 hc unlock
 
-# do multi monitor setup here, e.g.:
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
+#Dualmonitor setup
+# Find out your monitor name with xrandr or arandr (save and you get this line)
+#xrandr --output VGA-1 --primary --mode 1360x768 --pos 0x0 --rotate normal
+#xrandr --output DP2 --primary --mode 1920x1080 --rate 60.00 --output LVDS1 --off &
+#xrandr --output LVDS1 --mode 1366x768 --output DP3 --mode 1920x1080 --right-of LVDS1
+#xrandr --output HDMI2 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off
+
+
+#Dualmonitor setup
 # hc detect_monitors
+#hc set_monitors 1920x1080+0+0 1920x1080+1920+0
+#hc remove_monitor 1
 
 
-# find the panel
-panel=~/.config/herbstluftwm/panel.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
-    # start it on each monitor
-    "$panel" $monitor &
-done
+#room for polybar on both monitors
+#single polybar at top
+hc pad 0 30
+#second polybar at bottom
+#hc pad 0 30 0 30 0
+#single polybar at top
+hc pad 1 30
+#second polybar at bottom
+#hc pad 1 30 0 30 0
+
+#launching polybar
+~/.config/polybar/launch.sh
